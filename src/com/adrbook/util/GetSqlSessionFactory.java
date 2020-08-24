@@ -24,21 +24,24 @@ public class GetSqlSessionFactory {
    /**
     * 使用同步鎖
     * @return sql session 工廠
+ * @throws IOException
     */
-   synchronized public static SqlSessionFactory getSqlSessionFactory(){
+   synchronized public static SqlSessionFactory getSqlSessionFactory() {
        if (sqlSessionFactory == null){
 	    	//使用sqlSessionFactory取得連線資訊。
 	   		//1. 讀取配置文件
-	   		InputStream is;
+    	   	String resource = "mybatis-config.xml";
+	   		InputStream is=null;
 			try {
-				is = Resources.getResourceAsStream("mybatis-config.xml");
+				is = Resources.getResourceAsStream(resource);
 				//2. 創建sqlSessionFactory 工廠
 		   		SqlSessionFactoryBuilder build = new SqlSessionFactoryBuilder();
 		   		sqlSessionFactory = build.build(is);
+				is.close();
 			} catch (IOException e) {
 				e.printStackTrace();
+				System.out.println("SqlSessiongFactoyr Error: "+e.toString());
 			}
-
        }
        return sqlSessionFactory;
    }

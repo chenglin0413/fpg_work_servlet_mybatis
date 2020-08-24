@@ -14,4 +14,8 @@ public class GetSqlSession {
 		sqlSession = GetSqlSessionFactory.getSqlSessionFactory().openSession();
 		return sqlSession;
 	}
+	public void destory(){
+		sqlSession.commit();
+	    sqlSession.close();
+	}
 }

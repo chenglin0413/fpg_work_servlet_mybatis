@@ -46,13 +46,15 @@ public class AdrbookServlet extends HttpServlet {
 		String brow_ver = request.getHeader("User-agent");//取得廠商版本號、類型
 		String ip = request.getRemoteAddr();//取得廠商的ip地址
 
+
 		Map dataMap = new Gson().fromJson(request.getReader(), Map.class);//將頁面json字串轉成物件
 		String action = dataMap.get("action").toString(); // 動作邏輯判斷 : action
 		AdrbookVO adk_vo = new AdrbookVO();
+		GetSqlSession gss = new GetSqlSession();
+		SqlSession sqlSession = gss.getSqlSession();
+		AdrbookDaoIMP abkDao = sqlSession.getMapper(AdrbookDaoIMP.class);//使用sqlsession 創立DAO接口代理對象
 
-		//利用mybatis ，取代持久層，將sql指令透過mybatis-config.xml設定(mybatis框架)
-		SqlSession sqlSession = GetSqlSession.getSqlSession();//使用工廠產生代理對象
-    	AdrbookDaoIMP abkDao=sqlSession.getMapper(AdrbookDaoIMP.class);//使用sqlsession 創立DAO接口代理對象
+
         if("getAll".equals(action)){//全部搜尋
 
         	List<AdrbookVO> abks = abkDao.getAll();
@@ -115,8 +117,7 @@ public class AdrbookServlet extends HttpServlet {
         	abkDao.delete(xuid);
         	System.out.println("del_complete,xuid : "+xuid);
         }
-        sqlSession.commit();
-        sqlSession.close();
+        gss.destory();
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
