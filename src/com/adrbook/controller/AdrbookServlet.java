@@ -66,18 +66,13 @@ public class AdrbookServlet extends HttpServlet {
         }
         if("insert".equals(action)){// 新增一筆
         	Map insert_data =  (Map) dataMap.get("data");
-        	String name = insert_data.get("name").toString();
-        	String tel = insert_data.get("tel").toString();
-        	String notes = insert_data.get("notes").toString();
-        	String type = insert_data.get("type").toString();
-        	Integer type_index = Integer.parseInt(insert_data.get("type_index").toString());
-        	String gender = insert_data.get("gender").toString();
-        	adk_vo.setName(name);
-        	adk_vo.setTel(tel);
-        	adk_vo.setNotes(notes);
-        	adk_vo.setType(type);
-        	adk_vo.setType_index(type_index);
-        	adk_vo.setGender(gender);
+
+        	adk_vo.setName(insert_data.get("name").toString());
+        	adk_vo.setTel(insert_data.get("tel").toString());
+        	adk_vo.setNotes(insert_data.get("notes").toString());
+        	adk_vo.setType(insert_data.get("type").toString());
+        	adk_vo.setType_index(Integer.parseInt(insert_data.get("type_index").toString()));
+        	adk_vo.setGender(insert_data.get("gender").toString());
         	adk_vo.setIp(ip);
         	adk_vo.setBrow_ver(brow_ver);
         	//insert
@@ -86,21 +81,14 @@ public class AdrbookServlet extends HttpServlet {
         	System.out.println(insert_data);
         }
         if("update".equals(action)){// 更新一筆
-        	Map update_data =  (Map) dataMap.get("data");
-        	String name = update_data.get("name").toString();
-        	String tel = update_data.get("tel").toString();
-        	String notes = update_data.get("notes").toString();
-        	String type = update_data.get("type").toString();
-        	Integer type_index = Integer.parseInt(update_data.get("type_index").toString());
-        	String gender = update_data.get("gender").toString();
+        	Map  update_data =  (Map) dataMap.get("data");
         	String xuid = update_data.get("xuid").toString();
-        	System.out.println(name);
-        	adk_vo.setName(name);
-        	adk_vo.setTel(tel);
-        	adk_vo.setGender(gender);
-        	adk_vo.setType(type);
-        	adk_vo.setType_index(type_index);
-        	adk_vo.setNotes(notes);
+        	adk_vo.setName(update_data.get("name").toString());
+        	adk_vo.setTel(update_data.get("tel").toString());
+        	adk_vo.setGender(update_data.get("gender").toString());
+        	adk_vo.setType(update_data.get("type").toString());
+        	adk_vo.setType_index(Integer.parseInt(update_data.get("type_index").toString()));
+        	adk_vo.setNotes(update_data.get("notes").toString());
         	adk_vo.setXuid(xuid);
         	adk_vo.setIp(ip);
         	adk_vo.setBrow_ver(brow_ver);
